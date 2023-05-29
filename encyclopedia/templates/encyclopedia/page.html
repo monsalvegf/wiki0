@@ -1,0 +1,12 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <div name="content" rows="5" cols="50" readonly>
+        {{ content|safe }}
+    </div><br>
+
+{% endblock %}
