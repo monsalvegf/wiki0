@@ -1,0 +1,17 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create New entry on Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Título del Archivo:</label><br>
+        <input type="text" id="title" name="title"><br>
+        <label for="content">Contenido del Archivo:</label><br>
+        <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Guardar">
+    </form>
+
+{% endblock %}
