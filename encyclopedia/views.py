@@ -1,11 +1,13 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 
 from . import util
 
 import markdown2
-
 import os
 import fnmatch
+import random
+
 
 
 def index(request):
@@ -105,6 +107,12 @@ def edit_page(request):
             "entries": util.list_entries()
     })
  
+
+
+def random_page(request):
+    entries = util.list_entries()
+    random_entry = random.choice(entries)
+    return redirect('encyclopedia:entry', title=random_entry)
 
 
 
