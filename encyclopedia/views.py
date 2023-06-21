@@ -61,10 +61,12 @@ def search(request):
 
 def new_entry(request):
     if request.method == 'POST':
-        title = request.POST.get('title')
-        content = request.POST.get('content')
+        title = request.POST.get('title').strip()
+        content = request.POST.get('content').strip()
         directory = 'entries/'
-
+        if not title:
+            # Handle empty title here, for example by showing an error message
+            return render(request, 'encyclopedia/error.html', {'error': 'Title is required'})
         if os.path.isfile(os.path.join(directory, title + '.md')):
             return render(request, 'encyclopedia/error.html', {
                 'message': 'There is already a page with this title.'
@@ -78,4 +80,32 @@ def new_entry(request):
             })
     else:
         return render(request, "encyclopedia/new_entry.html")
+    
+ 
+
+def edit_page(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content", "")
+        if content:
+            util.save_entry(title, content)
+            html_content = markdown2.markdown(content)
+            return render(request, "encyclopedia/page.html", {
+                "title": title,
+                "content": html_content
+            })
+        else:
+            content = util.get_entry(title)
+            return render(request, "encyclopedia/edit_page.html", {
+                "title": title,
+                "content": content
+            })
+    else:
+        return render(request, "encyclopedia/index.html", {
+            "entries": util.list_entries()
+    })
+ 
+
+
+
 

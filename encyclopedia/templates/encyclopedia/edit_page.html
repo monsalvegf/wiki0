@@ -1,19 +1,21 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Create New entry on Encyclopedia
+    Editing entry on Encyclopedia
 {% endblock %}
 
 {% block body %}
-    <form method="post">
+
+    <form method="post" action="{% url 'encyclopedia:edit_page' %}">
         {% csrf_token %}
         <label for="title">Entry Title:</label><br>
-        <input type="text" id="title" name="title" required><br>
+        <input type="text" id="title" name="title" value="{{ title }}" required><br>
         <label for="content">Content:</label><br>
-        <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
+        <textarea id="content" name="content" rows="4" cols="50" required>{{ content }}</textarea><br>
         <input type="submit" value="Guardar">
     </form>
 
 {% endblock %}
+
 
 

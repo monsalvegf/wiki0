@@ -5,8 +5,15 @@
 {% endblock %}
 
 {% block body %}
+    
+    <form method="post" action="{% url 'encyclopedia:edit_page' %}">
+        {% csrf_token %}
+        <input type="hidden" name="title" value="{{ title }}" required>
+        <button type="submit">Edit this page</button>
+    </form>
+    
     <div name="content" rows="5" cols="50" readonly>
-        {{ content|safe }}
+        {{ content|safe}}
     </div><br>
 
 {% endblock %}
